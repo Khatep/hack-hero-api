@@ -1,6 +1,9 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: auth-module
 
+token:
+  signingKey: ${TOKEN_SIGNING_KEY}
+  lifetime: ${TOKEN_LIFETIME}
