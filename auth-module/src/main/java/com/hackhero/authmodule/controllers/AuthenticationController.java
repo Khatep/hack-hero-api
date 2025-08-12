@@ -2,6 +2,7 @@ package com.hackhero.authmodule.controllers;
 
 import com.hackhero.authmodule.dtos.*;
 import com.hackhero.authmodule.services.AuthenticationService;
+import com.hackhero.domainmodule.entities.AbstractEntity;
 import com.hackhero.domainmodule.entities.users.AuthUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInUserResponse<AuthUser>> signIn(@RequestBody @Valid SignInUserRequest request) {
-        SignInUserResponse<AuthUser> jwtResponseDto = authenticationService.signIn(request);
+    public ResponseEntity<SignInUserResponse<AbstractEntity>> signIn(@RequestBody @Valid SignInUserRequest request) {
+        SignInUserResponse<AbstractEntity> jwtResponseDto = authenticationService.signIn(request);
         //log.info("new token registered: {}", jwtAuthenticationResponse.getToken());
         return ResponseEntity.status(HttpStatus.OK).body(jwtResponseDto);
     }
