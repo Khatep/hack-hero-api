@@ -12,6 +12,7 @@
     <modules>
         <module>auth-module</module>
         <module>domain-module</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>

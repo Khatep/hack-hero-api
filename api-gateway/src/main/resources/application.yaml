@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth
+          uri: http://auth-module:8081
+          predicates:
+            - Path=/auth/**
+        - id: hackathons
+          uri: http://hackathon-service:8083
+          predicates:
+            - Path=/hackathons/**

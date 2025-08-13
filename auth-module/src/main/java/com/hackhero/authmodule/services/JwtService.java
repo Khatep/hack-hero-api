@@ -53,6 +53,9 @@ public class JwtService {
         return phoneNumber.equals(userDetails.getUsername()) && notExpired;
     }
 
+    public boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date(System.currentTimeMillis()));
+    }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);
@@ -75,11 +78,6 @@ public class JwtService {
                 .createdAt(new Date(System.currentTimeMillis()))
                 .expiresAt(new Date(System.currentTimeMillis() + lifetime))
                 .build();
-    }
-
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date(System.currentTimeMillis()));
     }
 
     private Date extractExpiration(String token) {

@@ -20,6 +20,17 @@ services:
   #      TOKEN_SIGNING_KEY: ${TOKEN_SIGNING_KEY}
   #      TOKEN_LIFETIME: ${TOKEN_LIFETIME}
 
+  auth-module:
+    build: ./auth-module
+    ports: [ "8081:8080" ]
+    #environment: ...
+
+  api-gateway:
+    build: ./api-gateway
+    ports: [ "8080:8080" ]
+    depends_on:
+      - auth-module
+
   db:
     image: postgres:15
     container_name: hack-hero-database
