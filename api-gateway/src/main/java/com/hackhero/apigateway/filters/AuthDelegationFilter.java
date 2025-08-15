@@ -46,9 +46,7 @@ public class AuthDelegationFilter implements GlobalFilter, Ordered {
                         return unauthorized(exchange, "Invalid token");
                     }
                 })
-                .onErrorResume(ex -> {
-                    return unauthorized(exchange, "Auth service unavailable");
-                });
+                .onErrorResume(ex -> unauthorized(exchange, "Auth service unavailable"));
     }
 
     private Mono<Void> unauthorized(ServerWebExchange exchange, String msg) {

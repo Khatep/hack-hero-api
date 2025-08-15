@@ -72,5 +72,12 @@
             <artifactId>domain-module</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!-- core module -->
+        <dependency>
+            <groupId>com.hackhero</groupId>
+            <artifactId>core-module</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

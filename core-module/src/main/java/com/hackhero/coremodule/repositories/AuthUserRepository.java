@@ -1,4 +1,4 @@
-package com.hackhero.domainmodule.repositories;
+package com.hackhero.coremodule.repositories;
 
 import com.hackhero.domainmodule.entities.users.AuthUser;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -10,7 +10,7 @@ spring:
           uri: http://auth-module:8081
           predicates:
             - Path=/auth/**
-        - id: hackathons
-          uri: http://hackathon-service:8083
+        - id: core
+          uri: http://core-module:8082
           predicates:
-            - Path=/hackathons/**
+            - Path=/api/v1/**

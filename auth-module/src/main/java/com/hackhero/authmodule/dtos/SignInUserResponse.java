@@ -1,7 +1,6 @@
 package com.hackhero.authmodule.dtos;
 
-import com.hackhero.domainmodule.entities.AbstractEntity;
-import com.hackhero.domainmodule.entities.users.AuthUser;
+import com.hackhero.coremodule.dto.responses.AbstractUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInUserResponse<T extends AbstractEntity> {
+public class SignInUserResponse<T extends AbstractUserResponse> {
     private JwtResponseDto jwtResponseDto;
-    T user;
+    T userResponseDto;
 }

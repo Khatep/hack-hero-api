@@ -5,7 +5,7 @@ import com.hackhero.authmodule.dtos.JwtResponseDto;
 import com.hackhero.authmodule.dtos.SignInUserRequest;
 import com.hackhero.authmodule.dtos.SignInUserResponse;
 import com.hackhero.authmodule.dtos.SignUpUserRequest;
-import com.hackhero.domainmodule.entities.AbstractEntity;
+import com.hackhero.coremodule.dto.responses.AbstractUserResponse;
 import com.hackhero.domainmodule.entities.users.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,7 +38,7 @@ public class AuthenticationService {
         return jwtService.generateToken(authUser);
     }
 
-    public SignInUserResponse<AbstractEntity> signIn(SignInUserRequest request) {
+    public SignInUserResponse<AbstractUserResponse> signIn(SignInUserRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.phoneNumber(),
                 request.password()

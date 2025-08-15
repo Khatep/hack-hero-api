@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "judges")
-public class Judge extends AbstractEntity {
+public class Judge extends AbstractUser {
 
     @OneToOne
     @JoinColumn(name = "auth_user_id", nullable = false)

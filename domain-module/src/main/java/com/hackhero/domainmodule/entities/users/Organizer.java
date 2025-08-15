@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "organizers")
-public class Organizer extends AbstractEntity {
+public class Organizer extends AbstractUser {
 
     @OneToOne
     @JoinColumn(name = "auth_user_id", nullable = false)
