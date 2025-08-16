@@ -1,4 +1,4 @@
-package com.hackhero.authmodule.config;
+package com.hackhero.authmodule.config.secutiry;
 
 import com.hackhero.authmodule.services.AuthUserService;
 import com.hackhero.authmodule.services.CustomAuthEntryPoint;

@@ -29,8 +29,10 @@ public class ParticipantServiceImpl implements ParticipantService {
     public ParticipantResponse createParticipant(CreateParticipantRequest request) {
         Participant participant = participantMapper.toEntity(request);
 
-        AuthUser authUser = authUserRepository.findByPhoneNumber(request.getPhoneNumber())
-                .orElseThrow(() -> new EntityNotFoundException("Auth user with number - " + request.getPhoneNumber() + " not found"));
+        AuthUser authUser = authUserRepository.findByPhoneNumber(request.phoneNumber())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Auth user with number - " + request.phoneNumber() + " not found"
+                ));
         participant.setAuthUser(authUser);
 
         return participantMapper.toResponse(participantRepository.save(participant));
@@ -59,16 +61,12 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public ParticipantResponse updateParticipant(Long id, CreateParticipantRequest request) {
-        Participant participant = participantRepository.findById(id)
-                .orElseThrow(() -> new ParticipantNotFoundException("Participant not found with id " + id));
+        if (!participantRepository.existsById(id)) {
+            throw new ParticipantNotFoundException("Participant with id - " + id + " not found");
+        }
 
-        participant.setNickname(request.getNickname());
-        participant.setBio(request.getBio());
-        participant.setGithubUsername(request.getGithubUsername());
-        participant.setYearsExperience(request.getYearsExperience());
-        participant.setEmail(request.getEmail());
-        participant.setGradeStatus(request.getGradeStatus());
-
+        Participant participant = participantMapper.toEntity(request);
+        participant.setId(id);
         return participantMapper.toResponse(participantRepository.save(participant));
     }
 

@@ -24,13 +24,13 @@ public class ParticipantController {
         return participantService.createParticipant(request);
     }
 
-    @GetMapping("/{id}")
-    public ParticipantResponse getParticipantById(@PathVariable Long id) {
+    @GetMapping("id/{id}")
+    public ParticipantResponse getParticipantById(@PathVariable("id") Long id) {
         return participantService.getParticipantById(id);
     }
 
-    @GetMapping("/{phoneNumber}")
-    public ParticipantResponse getParticipantByPhoneNumber(@PathVariable String phoneNumber) {
+    @GetMapping("phoneNumber/{phoneNumber}")
+    public ParticipantResponse getParticipantByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         return participantService.getParticipantByPhoneNumber(phoneNumber);
     }
 

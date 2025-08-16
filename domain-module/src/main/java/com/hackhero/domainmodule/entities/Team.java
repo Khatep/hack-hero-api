@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,7 +31,7 @@ public class Team extends AbstractEntity {
             joinColumns = @JoinColumn(name = "team_id"),
             inverseJoinColumns = @JoinColumn(name = "participant_id")
     )
-    private List<Participant> participants;
+    private Set<Participant> participants;
 
     @ManyToMany
     @JoinTable(

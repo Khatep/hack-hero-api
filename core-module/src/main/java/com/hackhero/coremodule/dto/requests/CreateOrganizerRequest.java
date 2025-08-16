@@ -1,12 +1,9 @@
 package com.hackhero.coremodule.dto.requests;
 
-import lombok.Data;
-
-@Data
-public class CreateOrganizerRequest {
-    private String phoneNumber;
-    private String organizationName;
-    private String positionTitle;
-    private String website;
-    private String description;
-}
+public record CreateOrganizerRequest(
+        String phoneNumber,
+        String organizationName,
+        String positionTitle,
+        String website,
+        String description
+) {}

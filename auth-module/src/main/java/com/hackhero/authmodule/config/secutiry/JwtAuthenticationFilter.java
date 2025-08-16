@@ -1,4 +1,4 @@
-package com.hackhero.authmodule.config;
+package com.hackhero.authmodule.config.secutiry;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

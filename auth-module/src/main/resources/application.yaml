@@ -10,11 +10,14 @@ spring:
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: false
+
+clients:
+  core-module: ${CORE_MODULE_URL}
 
 token:
   signingKey: ${TOKEN_SIGNING_KEY}

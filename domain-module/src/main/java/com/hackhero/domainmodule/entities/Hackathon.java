@@ -3,6 +3,7 @@ package com.hackhero.domainmodule.entities;
 import com.hackhero.domainmodule.entities.users.Judge;
 import com.hackhero.domainmodule.entities.users.Organizer;
 import com.hackhero.domainmodule.entities.users.Sponsor;
+import com.hackhero.domainmodule.enums.HackathonStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class Hackathon extends AbstractEntity {
     private String prizePool;
     private String techTags;
     private Integer maxCountOfMembersInTeam;
+    private HackathonStatus status;
 
     @OneToMany(mappedBy = "hackathon")
     private List<Challenge> challenges;

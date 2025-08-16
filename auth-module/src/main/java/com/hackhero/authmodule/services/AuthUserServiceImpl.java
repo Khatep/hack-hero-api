@@ -1,5 +1,6 @@
 package com.hackhero.authmodule.services;
 
+import com.hackhero.authmodule.clients.CoreModuleClient;
 import com.hackhero.authmodule.dtos.JwtResponseDto;
 import com.hackhero.authmodule.dtos.SignInUserResponse;
 import com.hackhero.authmodule.repositories.AuthUserRepository;
@@ -22,8 +23,7 @@ import java.util.Optional;
 @Slf4j
 public class AuthUserServiceImpl implements AuthUserService {
     private final AuthUserRepository authUserRepository;
-    private final GeneralMapper generalMapper;
-
+    private final CoreModuleClient coreModuleClient;
     //TODO hardcode
     private final JudgeRepository judgeRepository;
     private final OrganizerRepository organizerRepository;
@@ -71,7 +71,7 @@ public class AuthUserServiceImpl implements AuthUserService {
             default -> throw new RuntimeException("Unknown role: " + authUser.getRole());
         }
 
-        AbstractUserResponse userResponseDto = generalMapper.toResponse(userEntity);
+        AbstractUserResponse userResponseDto = coreModuleClient.mapToResponse(userEntity);
 
         log.info(userResponseDto.toString());
         return SignInUserResponse.builder()

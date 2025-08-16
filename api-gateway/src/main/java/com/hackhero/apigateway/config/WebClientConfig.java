@@ -13,7 +13,7 @@ import java.time.Duration;
 @Configuration
 public class WebClientConfig {
 
-    @Value("${spring.cloud.gateway.routes[0].uri}")
+    @Value("${auth.module.url}")
     private String authModuleUrl;
 
     @Bean

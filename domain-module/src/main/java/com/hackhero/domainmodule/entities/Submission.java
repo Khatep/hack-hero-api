@@ -1,5 +1,6 @@
 package com.hackhero.domainmodule.entities;
 
+import com.hackhero.domainmodule.enums.SubmissionStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 public class Submission extends AbstractEntity {
 
     private String gitUrl;
+    private String presentationUrl;
 
     @ManyToOne
     @JoinColumn(name = "hackathon_id")
@@ -33,7 +35,7 @@ public class Submission extends AbstractEntity {
     private String description;
 
     private LocalDateTime submittedAt;
-    private String status;
+    private SubmissionStatus status;
     private Integer score;
 
     @Column(columnDefinition = "TEXT")

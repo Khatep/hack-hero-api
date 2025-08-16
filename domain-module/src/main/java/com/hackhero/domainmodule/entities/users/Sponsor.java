@@ -1,6 +1,5 @@
 package com.hackhero.domainmodule.entities.users;
 
-import com.hackhero.domainmodule.entities.AbstractEntity;
 import com.hackhero.domainmodule.entities.Hackathon;
 import jakarta.persistence.*;
 import lombok.Getter;
