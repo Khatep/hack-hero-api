@@ -35,7 +35,10 @@ public class ParticipantServiceImpl implements ParticipantService {
                 ));
         participant.setAuthUser(authUser);
 
-        return participantMapper.toResponse(participantRepository.save(participant));
+        ParticipantResponse participantResponse = participantMapper.toResponse(participantRepository.save(participant));
+        participantResponse.setPhoneNumber(participant.getAuthUser().getPhoneNumber());
+
+        return participantResponse;
     }
 
     @Override

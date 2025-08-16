@@ -1,6 +1,6 @@
 package com.hackhero.coremodule.services.impl;
 
-import com.hackhero.coremodule.dto.requests.CreateOrganizerRequest;
+import com.hackhero.coremodule.dto.requests.CreateOrUpdateOrganizerRequest;
 import com.hackhero.coremodule.dto.responses.OrganizerResponse;
 import com.hackhero.coremodule.repositories.AuthUserRepository;
 import com.hackhero.coremodule.repositories.OrganizerRepository;
@@ -26,7 +26,7 @@ public class OrganizerServiceImpl implements OrganizerService {
     private final OrganizerMapper organizerMapper;
 
     @Override
-    public OrganizerResponse createOrganizer(CreateOrganizerRequest request) {
+    public OrganizerResponse createOrganizer(CreateOrUpdateOrganizerRequest request) {
         Organizer organizer = organizerMapper.toEntity(request);
 
         AuthUser authUser = authUserRepository.findByPhoneNumber(request.phoneNumber())
@@ -35,7 +35,9 @@ public class OrganizerServiceImpl implements OrganizerService {
                 ));
         organizer.setAuthUser(authUser);
 
-        return organizerMapper.toResponse(organizerRepository.save(organizer));
+        OrganizerResponse organizerResponse = organizerMapper.toResponse(organizerRepository.save(organizer));
+        organizerResponse.setPhoneNumber(organizer.getAuthUser().getPhoneNumber());
+        return organizerResponse;
     }
 
     @Override
@@ -53,13 +55,17 @@ public class OrganizerServiceImpl implements OrganizerService {
     }
 
     @Override
-    public OrganizerResponse updateOrganizer(Long id, CreateOrganizerRequest request) {
+    public OrganizerResponse updateOrganizer(Long id, CreateOrUpdateOrganizerRequest request) {
         if (!organizerRepository.existsById(id)) {
             throw new OrganizerNotFoundException("Organizer with id - " + id + " not found");
         }
 
+        AuthUser authUser = authUserRepository.findByPhoneNumber(request.phoneNumber())
+                .orElseThrow(() -> new EntityNotFoundException("Auth user with number - " + request.phoneNumber() + " not found"));
+
         Organizer organizer = organizerMapper.toEntity(request);
         organizer.setId(id);
+        organizer.setAuthUser(authUser);
         return organizerMapper.toResponse(organizerRepository.save(organizer));
     }
 

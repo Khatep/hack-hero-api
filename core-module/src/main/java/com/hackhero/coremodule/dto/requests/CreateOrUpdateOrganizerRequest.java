@@ -1,6 +1,6 @@
 package com.hackhero.coremodule.dto.requests;
 
-public record CreateOrganizerRequest(
+public record CreateOrUpdateOrganizerRequest(
         String phoneNumber,
         String organizationName,
         String positionTitle,
