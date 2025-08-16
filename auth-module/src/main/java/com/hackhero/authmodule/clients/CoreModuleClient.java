@@ -2,6 +2,7 @@ package com.hackhero.authmodule.clients;
 
 import com.hackhero.coremodule.dto.responses.AbstractUserResponse;
 import com.hackhero.domainmodule.entities.AbstractEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
 
@@ -9,5 +10,5 @@ import org.springframework.web.service.annotation.PostExchange;
 public interface CoreModuleClient {
 
     @PostExchange("/map-to-response")
-    AbstractUserResponse mapToResponse(AbstractEntity entity);
+    AbstractUserResponse mapToResponse(@RequestBody AbstractEntity entity);
 }

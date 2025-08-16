@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtResponseDto {
+public class JwtInfoDto {
     private String token;
     private Date createdAt;
     private Date expiresAt;

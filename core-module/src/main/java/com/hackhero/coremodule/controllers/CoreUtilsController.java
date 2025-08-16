@@ -6,6 +6,7 @@ import com.hackhero.domainmodule.entities.AbstractEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+//TODO: Пересмотреть архитектуру, нужно ли гонять HTTP запросы из за маппера?
 @RestController
 @RequestMapping("/core-module/utils")
 @RequiredArgsConstructor

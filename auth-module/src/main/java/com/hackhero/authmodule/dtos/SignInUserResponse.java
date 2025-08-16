@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignInUserResponse<T extends AbstractUserResponse> {
-    private JwtResponseDto jwtResponseDto;
+    private JwtInfoDto jwtInfoDto;
     T userResponseDto;
 }

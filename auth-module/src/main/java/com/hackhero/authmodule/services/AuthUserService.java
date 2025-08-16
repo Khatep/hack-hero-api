@@ -1,6 +1,6 @@
 package com.hackhero.authmodule.services;
 
-import com.hackhero.authmodule.dtos.JwtResponseDto;
+import com.hackhero.authmodule.dtos.JwtInfoDto;
 import com.hackhero.authmodule.dtos.SignInUserResponse;
 import com.hackhero.coremodule.dto.responses.AbstractUserResponse;
 import com.hackhero.domainmodule.entities.users.AuthUser;
@@ -15,5 +15,5 @@ public interface AuthUserService {
 
     void checkIsUserWithPhoneNumberAlreadyExists(String phoneNumber);
 
-    SignInUserResponse<AbstractUserResponse> signIn(AuthUser user, JwtResponseDto jwtResponseDto);
+    SignInUserResponse<AbstractUserResponse> signIn(AuthUser user, JwtInfoDto jwtInfoDto);
 }

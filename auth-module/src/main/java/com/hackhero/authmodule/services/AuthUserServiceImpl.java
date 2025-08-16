@@ -1,12 +1,11 @@
 package com.hackhero.authmodule.services;
 
 import com.hackhero.authmodule.clients.CoreModuleClient;
-import com.hackhero.authmodule.dtos.JwtResponseDto;
+import com.hackhero.authmodule.dtos.JwtInfoDto;
 import com.hackhero.authmodule.dtos.SignInUserResponse;
 import com.hackhero.authmodule.repositories.AuthUserRepository;
 import com.hackhero.authmodule.repositories.*;
 import com.hackhero.coremodule.dto.responses.AbstractUserResponse;
-import com.hackhero.coremodule.utils.mapper.GeneralMapper;
 import com.hackhero.domainmodule.entities.users.AbstractUser;
 import com.hackhero.domainmodule.entities.users.AuthUser;
 import com.hackhero.domainmodule.exceptions.*;
@@ -55,7 +54,7 @@ public class AuthUserServiceImpl implements AuthUserService {
     }
 
     @Override
-    public SignInUserResponse<AbstractUserResponse> signIn(AuthUser authUser, JwtResponseDto jwtResponseDto) {
+    public SignInUserResponse<AbstractUserResponse> signIn(AuthUser authUser, JwtInfoDto jwtInfoDto) {
         AbstractUser userEntity;
 
         //TODO: Хардкод, при добавлений нового типа клиента придется добавлять код
@@ -75,7 +74,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 
         log.info(userResponseDto.toString());
         return SignInUserResponse.builder()
-                .jwtResponseDto(jwtResponseDto)
+                .jwtInfoDto(jwtInfoDto)
                 .userResponseDto(userResponseDto)
                 .build();
     }

@@ -1,7 +1,7 @@
 package com.hackhero.authmodule.services;
 
 
-import com.hackhero.authmodule.dtos.JwtResponseDto;
+import com.hackhero.authmodule.dtos.JwtInfoDto;
 import com.hackhero.authmodule.dtos.SignInUserRequest;
 import com.hackhero.authmodule.dtos.SignInUserResponse;
 import com.hackhero.authmodule.dtos.SignUpUserRequest;
@@ -23,7 +23,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public JwtResponseDto signUpUser(SignUpUserRequest signUpUserRequest) {
+    public JwtInfoDto signUpUser(SignUpUserRequest signUpUserRequest) {
 
         authUserService.checkIsUserWithPhoneNumberAlreadyExists(signUpUserRequest.phoneNumber());
 

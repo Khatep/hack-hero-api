@@ -21,10 +21,10 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<JwtResponseDto> signUp(@RequestBody @Valid SignUpUserRequest request) {
-        JwtResponseDto jwtResponseDto = authenticationService.signUpUser(request);
+    public ResponseEntity<JwtInfoDto> signUp(@RequestBody @Valid SignUpUserRequest request) {
+        JwtInfoDto jwtInfoDto = authenticationService.signUpUser(request);
         //log.info("new token registered: {}", jwtAuthenticationResponse.getToken());
-        return ResponseEntity.status(HttpStatus.OK).body(jwtResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(jwtInfoDto);
     }
 
     @PostMapping("/sign-in")

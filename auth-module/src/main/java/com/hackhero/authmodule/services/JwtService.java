@@ -1,6 +1,6 @@
 package com.hackhero.authmodule.services;
 
-import com.hackhero.authmodule.dtos.JwtResponseDto;
+import com.hackhero.authmodule.dtos.JwtInfoDto;
 import com.hackhero.domainmodule.entities.users.AuthUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -36,7 +36,7 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public JwtResponseDto generateToken(UserDetails userDetails) {
+    public JwtInfoDto generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         if (userDetails instanceof AuthUser customUserDetails) {
             claims.put("id", customUserDetails.getId());
@@ -62,8 +62,8 @@ public class JwtService {
         return claimsResolvers.apply(claims);
     }
 
-    private JwtResponseDto generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return JwtResponseDto.builder()
+    private JwtInfoDto generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return JwtInfoDto.builder()
                 .token(
                         Jwts.builder()
                                 .claims()
