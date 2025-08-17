@@ -1,38 +1,6 @@
 version: '3.8'
 
 services:
-  auth-module:
-    build:
-      context: ./auth-module
-    container_name: hackhero-auth
-    ports:
-      - "8081:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-    depends_on:
-      - db
-    networks:
-      - hackhero-network
-
-  api-gateway:
-    build:
-      context: ./api-gateway
-    container_name: hackhero-api-gateway
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      AUTH_SERVICE_URL: http://auth-module:8080
-    depends_on:
-      - auth-module
-    networks:
-      - hackhero-network
-
   db:
     image: postgres:15
     container_name: hackhero-database

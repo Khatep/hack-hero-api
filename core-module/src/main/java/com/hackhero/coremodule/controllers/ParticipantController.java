@@ -50,25 +50,5 @@ public class ParticipantController {
         participantService.deleteParticipant(id);
     }
 
-    @PreAuthorize("hasRole('PARTICIPANT')")
-    @PostMapping("/teams/join/{teamId}")
-    public ResponseEntity<String> joinTeam(@PathVariable Long teamId) {
-        // service.joinTeam(...)
-        return ResponseEntity.ok("Participant joined team " + teamId);
-    }
-
-    @PreAuthorize("hasRole('PARTICIPANT')")
-    @PostMapping("/submissions")
-    public ResponseEntity<SubmissionResponse> createSubmission(
-            @RequestBody CreateSubmissionRequest request) {
-        // service.createSubmission(...)
-        return ResponseEntity.ok(new SubmissionResponse());
-    }
-
-    @PreAuthorize("hasRole('PARTICIPANT')")
-    @GetMapping("/my-submissions")
-    public ResponseEntity<List<SubmissionResponse>> getMySubmissions() {
-        return ResponseEntity.ok(List.of());
-    }
 }
 

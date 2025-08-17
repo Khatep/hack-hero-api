@@ -52,6 +52,8 @@ public class SubmissionServiceImpl implements SubmissionService {
         Team team = teamRepository.findById(request.teamId())
                 .orElseThrow(() -> new TeamNotFoundException("Team not found"));
 
+        //TODO:
+
         Submission submission = submissionMapper.toEntity(request);
 
         submission.setHackathon(hackathon);
