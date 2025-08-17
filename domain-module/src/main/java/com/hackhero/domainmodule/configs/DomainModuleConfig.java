@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "com.hackhero.domainmodule.repositories")
 @EntityScan(basePackages = "com.hackhero.domainmodule.entities")
 public class DomainModuleConfig {
 }
