@@ -1,6 +1,7 @@
 package com.hackhero.coremodule.services.impl;
 
 import com.hackhero.coremodule.dto.requests.CreateChallengeRequest;
+import com.hackhero.coremodule.dto.requests.UpdateChallengeRequest;
 import com.hackhero.coremodule.dto.responses.ChallengeResponse;
 import com.hackhero.coremodule.repositories.ChallengeRepository;
 import com.hackhero.coremodule.repositories.HackathonRepository;
@@ -8,8 +9,11 @@ import com.hackhero.coremodule.services.ChallengeService;
 import com.hackhero.coremodule.utils.mapper.ChallengeMapper;
 import com.hackhero.domainmodule.entities.Challenge;
 import com.hackhero.domainmodule.entities.Hackathon;
+import com.hackhero.domainmodule.exceptions.ChallengeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +35,37 @@ public class ChallengeServiceImpl implements ChallengeService {
         Challenge saved = challengeRepository.save(challenge);
 
         return challengeMapper.toResponse(saved);
+    }
+
+    @Override
+    public ChallengeResponse getChallengeById(Long id) {
+        Challenge challenge = challengeRepository.findById(id)
+                .orElseThrow(() -> new ChallengeNotFoundException("Challenge not found"));
+        return challengeMapper.toResponse(challenge);
+    }
+
+    @Override
+    public ChallengeResponse updateChallenge(Long id, UpdateChallengeRequest request) {
+        Challenge challenge = challengeRepository.findById(id)
+                .orElseThrow(() -> new ChallengeNotFoundException("Challenge not found"));
+
+        challenge.setTitle(request.title());
+        challenge.setDescription(request.description());
+        challenge.setMaxScore(request.maxScore());
+
+        return challengeMapper.toResponse(challengeRepository.save(challenge));
+    }
+
+    @Override
+    public void deleteChallenge(Long id) {
+        Challenge challenge = challengeRepository.findById(id)
+                .orElseThrow(() -> new ChallengeNotFoundException("Challenge not found"));
+        challengeRepository.delete(challenge);
+    }
+
+    @Override
+    public List<ChallengeResponse> getChallengesByHackathon(Long hackathonId) {
+        List<Challenge> challenges = challengeRepository.findByHackathonId(hackathonId);
+        return challengeMapper.toResponseList(challenges);
     }
 }

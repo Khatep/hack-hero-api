@@ -15,7 +15,4 @@ public class ParticipantResponse extends AbstractUserResponse {
     private Integer yearsExperience;
     private String email;
     private GradeStatus gradeStatus;
-
-//    private String skills;
-//    private String resumeUrl;
 }

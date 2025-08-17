@@ -1,7 +1,7 @@
 package com.hackhero.coremodule.dto.requests;
 
-public record JoinTeamRequest(
+public record LeaveFromTeamRequest(
         Long participantId,
         Long hackathonId,
-        String inviteCode
+        Long teamId
 ) {}

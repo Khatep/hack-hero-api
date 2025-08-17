@@ -1,5 +1,6 @@
 package com.hackhero.coremodule.controllers;
 
+import com.hackhero.coremodule.dto.requests.AssignJudgeToHackathonRequest;
 import com.hackhero.coremodule.dto.requests.CreateJudgeRequest;
 import com.hackhero.coremodule.dto.responses.JudgeResponse;
 import com.hackhero.coremodule.dto.responses.SubmissionResponse;
@@ -42,6 +43,14 @@ public class JudgeController {
     public void deleteJudge(@PathVariable("id") Long id) {
         judgeService.deleteJudge(id);
     }
+
+    @PostMapping("/assign")
+    public ResponseEntity<String> assignJudgeToHackathon(
+            @RequestBody AssignJudgeToHackathonRequest request) {
+        judgeService.assignJudgeToHackathon(request);
+        return ResponseEntity.ok("Judge " + request.judgeId() + " assigned to Hackathon " + request.hackathonId());
+    }
+
 
     @GetMapping("/submissions")
     public ResponseEntity<List<SubmissionResponse>> getAllSubmissions() {

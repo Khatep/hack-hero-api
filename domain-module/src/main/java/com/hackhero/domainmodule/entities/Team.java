@@ -1,6 +1,7 @@
 package com.hackhero.domainmodule.entities;
 
 import com.hackhero.domainmodule.entities.users.Participant;
+import com.hackhero.domainmodule.enums.TeamStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class Team extends AbstractEntity {
 
     private String description;
     private Integer currentSize;
-    private String status;
+    private TeamStatus status;
 
     @ManyToMany
     @JoinTable(
@@ -31,7 +32,7 @@ public class Team extends AbstractEntity {
             joinColumns = @JoinColumn(name = "team_id"),
             inverseJoinColumns = @JoinColumn(name = "participant_id")
     )
-    private Set<Participant> participants;
+    private Set<Participant> participants = new HashSet<>();
 
     @ManyToMany
     @JoinTable(

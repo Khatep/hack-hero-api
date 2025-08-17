@@ -1,23 +1,28 @@
 package com.hackhero.coremodule.services.impl;
 
+import com.hackhero.coremodule.dto.requests.AssignJudgeToHackathonRequest;
 import com.hackhero.coremodule.dto.requests.CreateJudgeRequest;
 import com.hackhero.coremodule.dto.responses.JudgeResponse;
 import com.hackhero.coremodule.dto.responses.SubmissionResponse;
 import com.hackhero.coremodule.repositories.AuthUserRepository;
+import com.hackhero.coremodule.repositories.HackathonRepository;
 import com.hackhero.coremodule.repositories.JudgeRepository;
 import com.hackhero.coremodule.repositories.SubmissionRepository;
 import com.hackhero.coremodule.services.JudgeService;
 import com.hackhero.coremodule.utils.mapper.JudgeMapper;
 import com.hackhero.coremodule.utils.mapper.SubmissionMapper;
+import com.hackhero.domainmodule.entities.Hackathon;
 import com.hackhero.domainmodule.entities.Submission;
 import com.hackhero.domainmodule.entities.users.AuthUser;
 import com.hackhero.domainmodule.entities.users.Judge;
 import com.hackhero.domainmodule.enums.SubmissionStatus;
+import com.hackhero.domainmodule.exceptions.HackathonNotFoundException;
 import com.hackhero.domainmodule.exceptions.JudgeNotFoundException;
 import com.hackhero.domainmodule.exceptions.SubmissionNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +33,7 @@ public class JudgeServiceImpl implements JudgeService {
     private final JudgeRepository judgeRepository;
     private final AuthUserRepository authUserRepository;
     private final SubmissionRepository submissionRepository;
+    private final HackathonRepository hackathonRepository;
     private final JudgeMapper judgeMapper;
     private final SubmissionMapper submissionMapper;
 
@@ -97,4 +103,19 @@ public class JudgeServiceImpl implements JudgeService {
 
         submissionRepository.save(submission);
     }
+
+    @Override
+    @Transactional
+    public void assignJudgeToHackathon(AssignJudgeToHackathonRequest request) {
+        Judge judge = judgeRepository.findById(request.judgeId())
+                .orElseThrow(() -> new JudgeNotFoundException("Judge not found: " + request.judgeId()));
+        Hackathon hackathon = hackathonRepository.findById(request.hackathonId())
+                .orElseThrow(() -> new HackathonNotFoundException("Hackathon not found: " + request.hackathonId()));
+
+        judge.getHackathons().add(hackathon);
+        hackathon.getJudges().add(judge);
+
+        judgeRepository.save(judge);
+    }
+
 }
