@@ -8,8 +8,11 @@ import com.hackhero.coremodule.repositories.HackathonRepository;
 import com.hackhero.coremodule.repositories.SubmissionRepository;
 import com.hackhero.coremodule.repositories.TeamRepository;
 import com.hackhero.coremodule.utils.mapper.SubmissionMapper;
-import com.hackhero.domainmodule.entities.*;
-
+import com.hackhero.domainmodule.entities.Challenge;
+import com.hackhero.domainmodule.entities.Hackathon;
+import com.hackhero.domainmodule.entities.Submission;
+import com.hackhero.domainmodule.entities.Team;
+import com.hackhero.domainmodule.enums.HackathonStatus;
 import com.hackhero.domainmodule.enums.SubmissionStatus;
 import com.hackhero.domainmodule.exceptions.ChallengeNotFoundException;
 import com.hackhero.domainmodule.exceptions.HackathonNotFoundException;
@@ -19,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +41,7 @@ public class SubmissionServiceImpl {
         Hackathon hackathon = hackathonRepository.findById(request.hackathonId())
                 .orElseThrow(() -> new HackathonNotFoundException("Hackathon not found"));
 
-        if (hackathon.getStartAt().isAfter(LocalDate.now())) {
+        if (!hackathon.getStatus().equals(HackathonStatus.STARTED)) {
             throw new IllegalStateException("Hackathon dont start yet");
         }
 
@@ -49,14 +51,11 @@ public class SubmissionServiceImpl {
         Team team = teamRepository.findById(request.teamId())
                 .orElseThrow(() -> new TeamNotFoundException("Team not found"));
 
-        Submission submission = new Submission();
+        Submission submission = submissionMapper.toEntity(request);
+
         submission.setHackathon(hackathon);
         submission.setChallenge(challenge);
         submission.setTeam(team);
-        submission.setGitUrl(request.gitUrl());
-        submission.setPresentationUrl(request.presentationUrl());
-        submission.setDemonstrationUrl(request.demonstrationUrl());
-        submission.setDescription(request.description());
         submission.setSubmittedAt(LocalDateTime.now());
         submission.setStatus(SubmissionStatus.SUBMITTED);
 

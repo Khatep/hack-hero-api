@@ -28,13 +28,14 @@ public class Submission extends AbstractEntity {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    private Integer iteration;
     private String demonstrationUrl;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     private LocalDateTime submittedAt;
+
+    @Enumerated(EnumType.STRING)
     private SubmissionStatus status;
     private Integer score;
 

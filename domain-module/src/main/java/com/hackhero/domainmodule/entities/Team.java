@@ -24,6 +24,8 @@ public class Team extends AbstractEntity {
 
     private String description;
     private Integer currentSize;
+
+    @Enumerated(EnumType.STRING)
     private TeamStatus status;
 
     @ManyToMany

@@ -32,6 +32,8 @@ public class Hackathon extends AbstractEntity {
     private String prizePool;
     private String techTags;
     private Integer maxCountOfMembersInTeam;
+
+    @Enumerated(EnumType.STRING)
     private HackathonStatus status;
 
     @OneToMany(mappedBy = "hackathon")
