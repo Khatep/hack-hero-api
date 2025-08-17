@@ -13,6 +13,7 @@ import com.hackhero.domainmodule.exceptions.ChallengeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -68,4 +69,15 @@ public class ChallengeServiceImpl implements ChallengeService {
         List<Challenge> challenges = challengeRepository.findByHackathonId(hackathonId);
         return challengeMapper.toResponseList(challenges);
     }
+    @Override
+    public List<ChallengeResponse> getChallengesByHackathonId(long hackathonId) {
+        List<Challenge> challenges = challengeRepository.findByHackathonId(hackathonId);
+
+        if (challenges == null || challenges.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return challengeMapper.toResponseList(challenges);
+    }
+
 }

@@ -51,8 +51,6 @@ public class SecurityConfiguration {
                 // Configuring access to endpoints
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/courses/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/sms/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()

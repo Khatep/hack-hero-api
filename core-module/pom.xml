@@ -69,6 +69,12 @@
             <version>8.0.2.Final</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -98,11 +104,10 @@
                 </configuration>
             </plugin>
 
-            <!-- Плагин Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.3</version>
                 <configuration>
                     <excludes>
                         <exclude>

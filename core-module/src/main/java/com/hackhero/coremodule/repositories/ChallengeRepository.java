@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     List<Challenge> findByHackathonId(Long hackathonId);
+
+    List<Challenge> findAllByHackathonId(long hackathonId);
 }

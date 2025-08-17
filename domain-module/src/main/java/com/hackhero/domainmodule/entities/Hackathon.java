@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,8 +37,8 @@ public class Hackathon extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private HackathonStatus status;
 
-    @OneToMany(mappedBy = "hackathon")
-    private List<Challenge> challenges;
+    @OneToMany(mappedBy = "hackathon", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Challenge> challenges = new ArrayList<>();
 
     @ManyToMany(mappedBy = "hackathons")
     private Set<Judge> judges = new HashSet<>();

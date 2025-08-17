@@ -12,4 +12,5 @@ public interface ChallengeService {
     ChallengeResponse updateChallenge(Long id, UpdateChallengeRequest request);
     void deleteChallenge(Long id);
     List<ChallengeResponse> getChallengesByHackathon(Long hackathonId);
+    List<ChallengeResponse> getChallengesByHackathonId(long hackathonId);
 }
