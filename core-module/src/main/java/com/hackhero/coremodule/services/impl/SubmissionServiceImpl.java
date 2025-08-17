@@ -7,6 +7,7 @@ import com.hackhero.coremodule.repositories.ChallengeRepository;
 import com.hackhero.coremodule.repositories.HackathonRepository;
 import com.hackhero.coremodule.repositories.SubmissionRepository;
 import com.hackhero.coremodule.repositories.TeamRepository;
+import com.hackhero.coremodule.services.SubmissionService;
 import com.hackhero.coremodule.utils.mapper.SubmissionMapper;
 import com.hackhero.domainmodule.entities.Challenge;
 import com.hackhero.domainmodule.entities.Hackathon;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class SubmissionServiceImpl {
+public class SubmissionServiceImpl implements SubmissionService {
 
     private final SubmissionRepository submissionRepository;
     private final HackathonRepository hackathonRepository;
@@ -101,5 +102,16 @@ public class SubmissionServiceImpl {
                 .orElseThrow(() -> new SubmissionNotFoundException("Submission not found"));
         submission.setStatus(SubmissionStatus.CANCELLED);
         submissionRepository.save(submission);
+    }
+
+    @Override
+    public List<SubmissionResponse> getSubmissionsByHackathon(Long hackathonId) {
+        List<Submission> submissions = submissionRepository.findByHackathonId(hackathonId);
+        if (submissions.isEmpty()) {
+            throw new HackathonNotFoundException("Hackathon or submissions not found");
+        }
+        return submissions.stream()
+                .map(submissionMapper::toResponse)
+                .collect(Collectors.toList());
     }
 }

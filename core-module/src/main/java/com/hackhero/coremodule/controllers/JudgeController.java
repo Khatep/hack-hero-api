@@ -2,6 +2,7 @@ package com.hackhero.coremodule.controllers;
 
 import com.hackhero.coremodule.dto.requests.AssignJudgeToHackathonRequest;
 import com.hackhero.coremodule.dto.requests.CreateJudgeRequest;
+import com.hackhero.coremodule.dto.requests.ScoreSubmissionRequest;
 import com.hackhero.coremodule.dto.responses.JudgeResponse;
 import com.hackhero.coremodule.dto.responses.SubmissionResponse;
 import com.hackhero.coremodule.services.JudgeService;
@@ -51,7 +52,6 @@ public class JudgeController {
         return ResponseEntity.ok("Judge " + request.judgeId() + " assigned to Hackathon " + request.hackathonId());
     }
 
-
     @GetMapping("/submissions")
     public ResponseEntity<List<SubmissionResponse>> getAllSubmissions() {
         return ResponseEntity.ok(judgeService.getAllSubmissions());
@@ -60,8 +60,8 @@ public class JudgeController {
     @PostMapping("/submissions/{submissionId}/score")
     public ResponseEntity<String> scoreSubmission(
             @PathVariable("submissionId") Long submissionId,
-            @RequestParam int score) {
-        judgeService.scoreSubmission(submissionId, score);
-        return ResponseEntity.ok("Scored submission " + submissionId + " with " + score);
+            @RequestBody ScoreSubmissionRequest request) {
+        judgeService.scoreSubmission(submissionId, request);
+        return ResponseEntity.ok("Scored submission " + submissionId + " with " + request.score());
     }
 }

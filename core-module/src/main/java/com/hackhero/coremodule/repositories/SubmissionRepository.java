@@ -24,4 +24,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
              and s.score is not null
            """)
     List<Submission> findAllWithScoreByHackathon(Long hackathonId);
+
+    List<Submission> findByHackathonId(Long hackathonId);
 }

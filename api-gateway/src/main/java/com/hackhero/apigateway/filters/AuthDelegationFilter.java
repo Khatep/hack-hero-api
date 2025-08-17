@@ -22,7 +22,7 @@ import java.util.Set;
 public class AuthDelegationFilter implements GlobalFilter, Ordered {
 
     private final WebClient authWebClient;
-    private final Set<String> whitelist = Set.of("/auth", "/public", "/actuator/health");
+    private final Set<String> whitelist = Set.of("/auth", "/public", "/actuator/health", "/results");
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

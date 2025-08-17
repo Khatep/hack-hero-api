@@ -2,6 +2,7 @@ package com.hackhero.coremodule.services.impl;
 
 import com.hackhero.coremodule.dto.requests.AssignJudgeToHackathonRequest;
 import com.hackhero.coremodule.dto.requests.CreateJudgeRequest;
+import com.hackhero.coremodule.dto.requests.ScoreSubmissionRequest;
 import com.hackhero.coremodule.dto.responses.JudgeResponse;
 import com.hackhero.coremodule.dto.responses.SubmissionResponse;
 import com.hackhero.coremodule.repositories.AuthUserRepository;
@@ -82,29 +83,6 @@ public class JudgeServiceImpl implements JudgeService {
     }
 
     @Override
-    public List<SubmissionResponse> getAllSubmissions() {
-        return submissionRepository.findAll()
-                .stream()
-                .map(submissionMapper::toResponse)
-                .toList();
-    }
-
-    @Override
-    public void scoreSubmission(Long submissionId, int score) {
-        Submission submission = submissionRepository.findById(submissionId)
-                .orElseThrow(() -> new SubmissionNotFoundException("Submission not found with id " + submissionId));
-
-        if (score < 0 || score > 100) {
-            throw new IllegalArgumentException("Score must be between 0 and 100");
-        }
-
-        submission.setScore(score);
-        submission.setStatus(SubmissionStatus.REVIEWED);
-
-        submissionRepository.save(submission);
-    }
-
-    @Override
     @Transactional
     public void assignJudgeToHackathon(AssignJudgeToHackathonRequest request) {
         Judge judge = judgeRepository.findById(request.judgeId())
@@ -116,6 +94,29 @@ public class JudgeServiceImpl implements JudgeService {
         hackathon.getJudges().add(judge);
 
         judgeRepository.save(judge);
+    }
+
+    @Override
+    public List<SubmissionResponse> getAllSubmissions() {
+        return submissionRepository.findAll()
+                .stream()
+                .map(submissionMapper::toResponse)
+                .toList();
+    }
+
+    @Override
+    public void scoreSubmission(Long submissionId, ScoreSubmissionRequest request) {
+        Submission submission = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> new SubmissionNotFoundException("Submission not found with id " + submissionId));
+
+        if (request.score() < 0 || request.score() > 100) {
+            throw new IllegalArgumentException("Score must be between 0 and 100");
+        }
+
+        submission.setScore(request.score());
+        submission.setStatus(SubmissionStatus.REVIEWED);
+        submission.setFeedback(request.feedback());
+        submissionRepository.save(submission);
     }
 
 }

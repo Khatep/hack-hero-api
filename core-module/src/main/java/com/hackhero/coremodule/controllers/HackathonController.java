@@ -2,8 +2,10 @@ package com.hackhero.coremodule.controllers;
 
 import com.hackhero.coremodule.dto.requests.CreateHackathonRequest;
 import com.hackhero.coremodule.dto.responses.HackathonResponse;
+import com.hackhero.coremodule.dto.responses.SubmissionResponse;
 import com.hackhero.coremodule.dto.responses.TeamResponse;
 import com.hackhero.coremodule.services.HackathonService;
+import com.hackhero.coremodule.services.SubmissionService;
 import com.hackhero.coremodule.services.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,7 @@ public class HackathonController {
 
     private final HackathonService hackathonService;
     private final TeamService teamService;
+    private final SubmissionService submissionService;
 
     @PreAuthorize("hasRole('ORGANIZER')")
     @PostMapping
@@ -29,5 +32,10 @@ public class HackathonController {
     @GetMapping("/{hackathonId}/teams")
     public List<TeamResponse> getTeamsByHackathon(@PathVariable("hackathonId") Long hackathonId) {
         return teamService.getTeamsByHackathon(hackathonId);
+    }
+
+    @GetMapping("/{hackathonId}/submissions")
+    public List<SubmissionResponse> getSubmissionsByHackathon(@PathVariable("hackathonId") Long hackathonId) {
+        return submissionService.getSubmissionsByHackathon(hackathonId);
     }
 }
