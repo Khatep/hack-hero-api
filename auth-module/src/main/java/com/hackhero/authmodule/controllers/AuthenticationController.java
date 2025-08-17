@@ -33,7 +33,4 @@ public class AuthenticationController {
         //log.info("new token registered: {}", jwtAuthenticationResponse.getToken());
         return ResponseEntity.status(HttpStatus.OK).body(jwtResponseDto);
     }
-
-
-
 }
